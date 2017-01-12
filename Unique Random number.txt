@@ -1,0 +1,67 @@
+Option Explicit
+
+Function UniqueRandomNumbers(NumCount As Long, LLimit As Long, ULimit As Long) As Variant
+
+'Creates an array with NumCount unique long random numbers in the range LLimit - ULimit (including)
+
+'Declaring variables
+Dim RandColl As Collection
+Dim i As Long
+Dim varTemp() As Long
+
+
+If NumCount < 1 Then
+    UniqueRandomNumbers = "Number of unique random number required is less than 1"
+    Exit Function
+End If
+
+If LLimit > ULimit Then
+    UniqueRandomNumbers = "Specified lower limit is greater than specified upper limit"
+    Exit Function
+End If
+
+If NumCount > (ULimit - LLimit + 1) Then
+    UniqueRandomNumbers = "Number of required unique random number is greater than maximum number of unique number that can exists between lower limit and upper limit"
+    Exit Function
+End If
+
+Set RandColl = New Collection
+
+Randomize
+
+Do
+
+    On Error Resume Next
+    
+    i = CLng(Rnd() * (ULimit - LLimit) + LLimit)
+    RandColl.Add i, CStr(i)
+    
+    On Error GoTo 0
+    
+Loop Until RandColl.Count = NumCount
+
+ReDim varTemp(1 To NumCount)
+
+For i = 1 To NumCount
+    varTemp(i) = RandColl(i)
+Next i
+
+'Set RandColl = Nothing
+
+UniqueRandomNumbers = RandColl
+
+Erase varTemp
+
+End Function
+
+' example use:
+Sub TestUniqueRandomNumbers()
+
+Dim varrRandomNumberList As Variant
+
+varrRandomNumberList = UniqueRandomNumbers(50, 1, 100)
+Range(Cells(3, 1), Cells(50 + 2, 1)).Value = _
+    Application.Transpose(varrRandomNumberList)
+    
+End Sub
+
