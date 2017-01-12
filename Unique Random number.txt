@@ -2,8 +2,6 @@ Option Explicit
 
 Function UniqueRandomNumbers(NumCount As Long, LLimit As Long, ULimit As Long) As Variant
 
-'Creates an array with NumCount unique long random numbers in the range LLimit - ULimit (including)
-
 'Declaring variables
 Dim RandColl As Collection
 Dim i As Long
@@ -54,11 +52,12 @@ Erase varTemp
 
 End Function
 
-' example use:
 Sub TestUniqueRandomNumbers()
 
 Dim varrRandomNumberList As Variant
+dim StartingRow, LastRow as Long
 
+LastRow = 
 varrRandomNumberList = UniqueRandomNumbers(50, 1, 100)
 Range(Cells(3, 1), Cells(50 + 2, 1)).Value = _
     Application.Transpose(varrRandomNumberList)
