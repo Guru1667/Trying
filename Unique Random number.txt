@@ -55,12 +55,13 @@ End Function
 Sub TestUniqueRandomNumbers()
 
 Dim varrRandomNumberList As Variant
-dim StartingRow, LastRow as Long
+dim LowerLimit as long, UpperLimit as long, counter as Long
 
-LastRow = 
-varrRandomNumberList = UniqueRandomNumbers(50, 1, 100)
-Range(Cells(3, 1), Cells(50 + 2, 1)).Value = _
-    Application.Transpose(varrRandomNumberList)
+LowerLimit = 80 
+UpperLimit = 130
+
+varrRandomNumberList = UniqueRandomNumbers(50, LowerLimit, UpperLimit)
+Range(Cells(3, 1), Cells(50 + 2, 1)).Value = Application.Transpose(varrRandomNumberList)
     
 End Sub
 
